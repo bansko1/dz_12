@@ -4,6 +4,7 @@ from statistics import mean
 import re
 from collections import Counter
 import json
+import time
 
 text_vacancies = 'junior AND (Python) AND (Москва)'
 url_vacancies = 'https://api.hh.ru/vacancies'
@@ -28,12 +29,8 @@ count = 0
 salary_list = []
 
 # Перебор страниц
-if pages < 6:
-    p = pages
-else:
-    p = 6
-# for i in range(pages):
-for i in range(p):
+for i in range(pages):
+    # for i in range(p):
     params = {
         'text': text_vacancies,
         'page': i,
@@ -47,6 +44,7 @@ for i in range(p):
     print('Обрабатывается страница: ', i)
     # Перебор записей на странице
     for j in range(per_page):
+        time.sleep(0.5)
         count = count + 1
         if count >= found:
             break
