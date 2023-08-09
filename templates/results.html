@@ -3,65 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <title>Результаты работы парсера</title>
-    <link href="main.css" rel="stylesheet">
+    <link rel='stylesheet' type="text/css" href="/static/main.css">
 </head>
 <body>
+
+<ul>
+    <li>
+        <a href="/">Главная</a>
+    </li>
+    <li>
+        <a href="/contacts/">Контакты</a>
+    </li>
+    <li>
+        <a href="/run/">Поиск</a>
+    </li>
+    <li>
+        <a href="/results/">Результаты</a>
+    </li>
+</ul>
+
 <h1>Результаты работы парсера</h1>
 <p class="proverb">Любой каприз за ваши деньги!</p>
+<!--{{text}}-->
+
+    <b>Запрос:</b>
+<hr>
+    <b> {{text_2['req']}}</b>
+<hr>
 <table>
   <tr>
-    <th>Количество вакансий</th>
+    <th>Кол-во вакансий   </th>
     <th>Средняя зарплата, руб</th>
   </tr>
       <tr>
-    <td>Всего найдено</td>
-    <td>ежемесячно чистыми</td>
+    <td>{{text_2['quantity']}}</td>
+    <td>{{text_2['mean_sal']}}</td>
   </tr>
 </table>
 <br>
 <br>
 <table>
     <tr>
-    <th>Номер</th>
-    <th>Требующиеся навыки</th>
-    <th>Встречается, количество раз</th>
-    <th>Встречается, в процентах</th>
+    <th>Номер   </th>
+    <th>Требуются навыки   </th>
+    <th>Требования встречаются   </th>
+    <th>Встречается, в %</th>
   </tr>
 
   <tr>
     <td>1</td>
-    <td>навык 1</td>
-    <td>сколько раз</td>
-    <td>сколько процентов</td>
+    <td>{{text.0['name']}}</td>
+    <td>{{text.0['count']}}</td>
+    <td>{{text.0['percent']}}</td>
   </tr>
     <tr>
     <td>2</td>
-    <td>навык 2</td>
-    <td>сколько раз</td>
-    <td>сколько процентов</td>
+    <td>{{text.1['name']}}</td>
+    <td>{{text.1['count']}}</td>
+    <td>{{text.1['percent']}}</td>
   </tr>
     <tr>
     <td>3</td>
-    <td>навык 3</td>
-    <td>сколько раз</td>
-    <td>сколько процентов</td>
+    <td>{{text.2['name']}}</td>
+    <td>{{text.2['count']}}</td>
+    <td>{{text.2['percent']}}</td>
   </tr>
         <tr>
     <td>4</td>
-    <td>навык 4</td>
-    <td>сколько раз</td>
-    <td>сколько процентов</td>
+    <td>{{text.3['name']}}</td>
+    <td>{{text.3['count']}}</td>
+    <td>{{text.3['percent']}}</td>
   </tr>
         <tr>
     <td>5</td>
-    <td>навык 5</td>
-    <td>сколько раз</td>
-    <td>сколько процентов</td>
+    <td>{{text.4['name']}}</td>
+    <td>{{text.4['count']}}</td>
+    <td>{{text.4['percent']}}</td>
   </tr>
 </table>
 <br>
-<a href="form.html">На страницу поиска</a>
-<br>
-<a href="index.html">На главную</a>
+
 </body>
 </html>

@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Поиск</title>
-    <link href="main.css" rel="stylesheet">
+    <link rel='stylesheet' type="text/css" href="/static/main.css">
 </head>
 <body>
+<ul>
+    <li>
+        <a href="/">Главная</a>
+    </li>
+    <li>
+        <a href="/contacts/">Контакты</a>
+    </li>
+    <li>
+        <a href="/run/">Поиск</a>
+    </li>
+    <li>
+        <a href="/results/">Результаты</a>
+    </li>
+</ul>
 <h1>Форма для поиска вакансий</h1>
-<p class="proverb">Ищите и обрящите</p>
+<p class="proverb">Ищите и обрящите!</p>
 <p>Введите поисковый запрос
-<br>допускается использование языка поисковых запросов hh</p>
-<form action="results.html">
-  <input type="text" name="query_string" value="" placeholder="поисковый запрос">
-  <input type="submit" value="Искать вакансии">
-</form>
-<br>
-<a href="index.html">На главную</a>
-
+<br>(допускается использование языка поисковых запросов hh).</p>
+    <form method="post">
+        <input type="text" name="input_text">
+        <button type="submit">Отправить</button>
+    </form>
 </body>
 </html>
