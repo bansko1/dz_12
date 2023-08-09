@@ -42,45 +42,61 @@
 </table>
 <br>
 <br>
-<table>
-    <tr>
-    <th>Номер   </th>
-    <th>Требуются навыки   </th>
-    <th>Требования встречаются   </th>
-    <th>Встречается, в %</th>
-  </tr>
 
-  <tr>
-    <td>1</td>
-    <td>{{text.0['name']}}</td>
-    <td>{{text.0['count']}}</td>
-    <td>{{text.0['percent']}}</td>
-  </tr>
-    <tr>
-    <td>2</td>
-    <td>{{text.1['name']}}</td>
-    <td>{{text.1['count']}}</td>
-    <td>{{text.1['percent']}}</td>
-  </tr>
-    <tr>
-    <td>3</td>
-    <td>{{text.2['name']}}</td>
-    <td>{{text.2['count']}}</td>
-    <td>{{text.2['percent']}}</td>
-  </tr>
+    <table>
         <tr>
-    <td>4</td>
-    <td>{{text.3['name']}}</td>
-    <td>{{text.3['count']}}</td>
-    <td>{{text.3['percent']}}</td>
-  </tr>
+            <th>Требуются навыки</th>
+            <th>Требования встречаются в количестве вакансий</th>
+            <th>Встречаются, в % от общего количества</th>
+        </tr>
+        {% for item in text %}
         <tr>
-    <td>5</td>
-    <td>{{text.4['name']}}</td>
-    <td>{{text.4['count']}}</td>
-    <td>{{text.4['percent']}}</td>
-  </tr>
-</table>
+            <td>{{item['name']}}</td>
+            <td>{{item['count']}}</td>
+            <td>{{item['percent']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+<!--<table>-->
+<!--    <tr>-->
+<!--    <th>Номер   </th>-->
+<!--    <th>Требуются навыки   </th>-->
+<!--    <th>Требования встречаются   </th>-->
+<!--    <th>Встречается, в %</th>-->
+<!--  </tr>-->
+
+<!--  <tr>-->
+<!--    <td>1</td>-->
+<!--    <td>{{text.0['name']}}</td>-->
+<!--    <td>{{text.0['count']}}</td>-->
+<!--    <td>{{text.0['percent']}}</td>-->
+<!--  </tr>-->
+<!--    <tr>-->
+<!--    <td>2</td>-->
+<!--    <td>{{text.1['name']}}</td>-->
+<!--    <td>{{text.1['count']}}</td>-->
+<!--    <td>{{text.1['percent']}}</td>-->
+<!--  </tr>-->
+<!--    <tr>-->
+<!--    <td>3</td>-->
+<!--    <td>{{text.2['name']}}</td>-->
+<!--    <td>{{text.2['count']}}</td>-->
+<!--    <td>{{text.2['percent']}}</td>-->
+<!--  </tr>-->
+<!--        <tr>-->
+<!--    <td>4</td>-->
+<!--    <td>{{text.3['name']}}</td>-->
+<!--    <td>{{text.3['count']}}</td>-->
+<!--    <td>{{text.3['percent']}}</td>-->
+<!--  </tr>-->
+<!--        <tr>-->
+<!--    <td>5</td>-->
+<!--    <td>{{text.4['name']}}</td>-->
+<!--    <td>{{text.4['count']}}</td>-->
+<!--    <td>{{text.4['percent']}}</td>-->
+<!--  </tr>-->
+<!--</table>-->
 <br>
 
 </body>
