@@ -5,8 +5,19 @@ import re
 from collections import Counter
 import json
 import time
+import sqlite3
 
+
+
+
+
+#cursor.execute('delete from key_skills')
 def parser_hh(text_vacancies):
+    # Соединение с базой данных
+    con = sqlite3.connect("hh.sqlite", check_same_thread=False)
+    # Создаем курсор
+    cursor = con.cursor()
+
 
     url_vacancies = 'https://api.hh.ru/vacancies'
     params = {
@@ -100,14 +111,22 @@ def parser_hh(text_vacancies):
     skill_couner = Counter(skills_list)
     count_sum = 0
     # print(skill_couner.most_common(7))
+    cursor.execute('delete from key_skills')
     for name, count in skill_couner.most_common(5):
         count_sum = count_sum + count
 
     for name, count in skill_couner.most_common(5):
+        prc = count / count_sum * 100
         add.append({'name': name,
                     'count': count,
-                    'percent': round(count / count_sum * 100, 1)
+                    'percent': round(prc, 1)
                     })
+        cursor.execute('insert into key_skills (name_ks, count_ks, percent_ks) values(?, ?, ?)', (name, count, round(prc, 1)))
+
+    # cursor.execute('select * from key_skills')
+    # result = cursor.fetchall()
+    con.commit()
+    con.close()
     # print('Самые распространенные требования по этим вакансиям:')
     # pprint.pprint(add)
 
@@ -119,7 +138,7 @@ def parser_hh(text_vacancies):
 
     # сохранение файл с результами работы
     #
- #   add.append({'Средняя зарплата': mean_sal})
+    # add.append({'Средняя зарплата': mean_sal})
     add_2 = {'req': text_vacancies, 'quantity': found, 'mean_sal': mean_sal}
     # add.append({'Найдено вакансий': found})
     # add.append({'Поисковый запрос': text_vacancies})
@@ -137,3 +156,11 @@ if __name__ == "__main__":
     # print(found, mean_sal)
     pprint.pprint(add)
     pprint.pprint(add_2)
+
+    # Соединение с базой данных
+    con = sqlite3.connect("hh.sqlite", check_same_thread=False)
+    # Создаем курсор
+    cursor = con.cursor()
+    cursor.execute('select * from key_skills')
+    result = cursor.fetchall()
+    print(result)
