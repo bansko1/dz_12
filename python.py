@@ -12,7 +12,6 @@ from flask import Flask, render_template, request
 from main import parser_hh
 
 
-
 app = Flask(__name__)
 
 @app.route("/")

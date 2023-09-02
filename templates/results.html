@@ -24,52 +24,40 @@
 
 <h1>Результаты работы парсера</h1>
 <p class="proverb">Любой каприз за ваши деньги!</p>
-<!--{{text}}-->
 
-    <b>Запрос:</b>
+<b>Запрос:</b>
 <hr>
-    <b> {{text_2['req']}}</b>
+<b> {{text_2['req']}}</b>
 <hr>
 <table>
-  <tr>
-    <th>Всего найдено вакансий   </th>
-    <th>Средняя зарплата, руб</th>
-  </tr>
-      <tr>
-    <td>{{text_2['quantity']}}</td>
-    <td>{{text_2['mean_sal']}}</td>
-  </tr>
+    <tr>
+        <th>Всего найдено вакансий</th>
+        <th>Средняя зарплата, руб</th>
+    </tr>
+    <tr>
+        <td>{{text_2['quantity']}}</td>
+        <td>{{text_2['mean_sal']}}</td>
+    </tr>
 </table>
 <br>
-<br>
 
-    <table>
-        <tr>
-            <th>Номер</th>
-            <th>Требуются навыки</th>
-            <th>Требования встречаются в количестве вакансий</th>
-            <th>Встречаются, в % от общего количества</th>
-        </tr>
-<!--        {% for item in text %}-->
-<!--        <tr>-->
-<!--            <td>{{item['name']}}</td>-->
-<!--            <td>{{item['count']}}</td>-->
-<!--            <td>{{item['percent']}}</td>-->
-<!--        </tr>-->
-<!--        {% endfor %}-->
-<!--    </table>-->
+<table>
+    <tr>
+        <th>Номер</th>
+        <th>Требуются навыки</th>
+        <th>Требования встречаются в количестве вакансий</th>
+        <th>Встречаются, в % от общего количества</th>
+    </tr>
+    {% for item in text_3 %}
+    <tr>
+        <td>{{item.0}}</td>
+        <td>{{item.1}}</td>
+        <td>{{item.2}}</td>
+        <td>{{item.3}}</td>
+    </tr>
+    {% endfor %}
+</table>
 
-        {% for item in text_3 %}
-        <tr>
-            <td>{{item.0}}</td>
-            <td>{{item.1}}</td>
-            <td>{{item.2}}</td>
-            <td>{{item.3}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-<!--                {{text_3}}-->
 <br>
 
 </body>
