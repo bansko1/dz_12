@@ -46,7 +46,8 @@ def results():
     list_1 = [result[1].id, result[1].name, result[1].count, result[1].percent]
     list_2 = [result[2].id, result[2].name, result[2].count, result[2].percent]
     list_3 = [result[3].id, result[3].name, result[3].count, result[3].percent]
-    res = [list_0, list_1, list_2, list_3]
+    list_4 = [result[4].id, result[4].name, result[4].count, result[4].percent]
+    res = [list_0, list_1, list_2, list_3, list_4]
     # print(list_result)
     return render_template('results.html', text=text, text_2=text_2, text_3=res)
 
