@@ -5,19 +5,41 @@ import re
 from collections import Counter
 import json
 import time
-import sqlite3
+
+from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+engine = create_engine('sqlite:///hh_orm.sqlite', echo=False)
+Base = declarative_base()
 
 
+class Key_skill(Base):
+    __tablename__ = 'key_skill'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    count = Column(Integer, nullable=True)
+    percent = Column(String, nullable=True)
+
+    def __init__(self, name, count, percent):
+        self.name = name
+        self.count = count
+        self.percent = percent
+
+    def __str__(self):
+        # return ['{self.id}', '{self.name}', '{self.count}', '{self.percent}']
+        return f'{self.id} {self.name} {self.count} {self.percent}'
 
 
+# Создание таблицы
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
 
-#cursor.execute('delete from key_skills')
+
 def parser_hh(text_vacancies):
-    # Соединение с базой данных
-    con = sqlite3.connect("hh.sqlite", check_same_thread=False)
-    # Создаем курсор
-    cursor = con.cursor()
-
+    session.query(Key_skill).delete()
+    session.commit()
 
     url_vacancies = 'https://api.hh.ru/vacancies'
     params = {
@@ -83,7 +105,7 @@ def parser_hh(text_vacancies):
             # time.sleep(0.01)
             # print(j, pp)
             except KeyError:
-                print('Страница: ', i, 'Строка: ', j)
+                # print('Страница: ', i, 'Строка: ', j)
                 break
             # print(pp)
             pp_re = re.findall(r'\s[A-Za-z-?]+', pp)
@@ -92,7 +114,7 @@ def parser_hh(text_vacancies):
             its = set(x.strip(' -').lower() for x in pp_re)
             # print('Приведенное множество из description')
             # print(its)
-            #if result_one_vac['key_skills']:
+            # if result_one_vac['key_skills']:
             try:
                 for sk in result_one_vac['key_skills']:
                     skills_list.append(sk['name'].lower())
@@ -111,7 +133,7 @@ def parser_hh(text_vacancies):
     skill_couner = Counter(skills_list)
     count_sum = 0
     # print(skill_couner.most_common(7))
-    cursor.execute('delete from key_skills')
+
     for name, count in skill_couner.most_common(5):
         count_sum = count_sum + count
 
@@ -121,14 +143,11 @@ def parser_hh(text_vacancies):
                     'count': count,
                     'percent': round(prc, 1)
                     })
-        cursor.execute('insert into key_skills (name_ks, count_ks, percent_ks) values(?, ?, ?)', (name, count, round(prc, 1)))
 
-    # cursor.execute('select * from key_skills')
-    # result = cursor.fetchall()
-    con.commit()
-    con.close()
-    # print('Самые распространенные требования по этим вакансиям:')
-    # pprint.pprint(add)
+        key_skill = Key_skill(name, count, percent=round(prc, 1))
+        # Добавление данных
+        session.add(key_skill)
+        session.commit()
 
     mean_sal = round(mean(salary_list), 0)
     # if len(skills_list):
@@ -150,6 +169,7 @@ def parser_hh(text_vacancies):
 
     return add, add_2
 
+
 if __name__ == "__main__":
     text_vacancies = 'junior AND (js) AND (Москва)'
     add, add_2 = parser_hh(text_vacancies)
@@ -157,10 +177,10 @@ if __name__ == "__main__":
     pprint.pprint(add)
     pprint.pprint(add_2)
 
-    # Соединение с базой данных
-    con = sqlite3.connect("hh.sqlite", check_same_thread=False)
-    # Создаем курсор
-    cursor = con.cursor()
-    cursor.execute('select * from key_skills')
-    result = cursor.fetchall()
-    print(result)
+    # Запрос из таблицы
+    results = session.query(Key_skill).all()
+    # print(results)
+    for result in results:
+        # print(result)
+        list_result = [result.id, result.name, result.count, result.percent]
+        print(list_result)
