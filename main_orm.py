@@ -64,7 +64,7 @@ def parser_hh(text_vacancies):
     # sk = []
 
     # Перебор страниц
-    for i in range(pages):
+    for i in range(pages): # обрабатываем 2 из pages страниц
         # for i in range(p):
         params = {
             'text': text_vacancies,
@@ -80,15 +80,30 @@ def parser_hh(text_vacancies):
         # Перебор записей на странице
         for j in range(per_page):
             time.sleep(0.5)
-            count = count + 1
             if count >= found:
                 break
-            salary = items[j]['salary']
-            if salary:
-                if salary['from'] and salary['to'] and salary['currency'] == 'RUR':
-                    salary_average = (salary['from'] + salary['to']) / 2
-                    # print(salary_average)
-                    salary_list.append(salary_average)
+            count = count + 1
+            print(count)
+            try:
+                salary = items[j]['salary']
+                print('salary:', salary)
+            except IndexError:
+                break
+            if salary and salary['currency'] == 'RUR':
+                if salary['to']:
+                    if not salary['from']:
+                        salary_average = salary['to']
+                # if salary['from'] and salary['to'] and salary['currency'] == 'RUR':
+                    else:
+                        salary_average = (salary['from'] + salary['to']) / 2
+
+                else:
+                    if salary['from']:
+                        salary_average = salary['from']
+                    else:
+                        break
+                print(salary['from'], salary['to'], salary_average)
+                salary_list.append(salary_average)
             # print(salary_list)
 
             item_one_vacancy = items[j]
