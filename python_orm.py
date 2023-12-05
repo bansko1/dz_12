@@ -13,7 +13,7 @@ import json
 from flask import Flask, render_template, request
 from main_orm import parser_hh, Key_skill
 
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
