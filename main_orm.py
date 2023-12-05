@@ -83,10 +83,10 @@ def parser_hh(text_vacancies):
             if count >= found:
                 break
             count = count + 1
-            print(count)
+            # print(count)
             try:
                 salary = items[j]['salary']
-                print('salary:', salary)
+                # print('salary:', salary)
             except IndexError:
                 break
             if salary and salary['currency'] == 'RUR':
@@ -102,7 +102,7 @@ def parser_hh(text_vacancies):
                         salary_average = salary['from']
                     else:
                         break
-                print(salary['from'], salary['to'], salary_average)
+                # print(salary['from'], salary['to'], salary_average)
                 salary_list.append(salary_average)
             # print(salary_list)
 
