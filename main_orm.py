@@ -164,7 +164,10 @@ def parser_hh(text_vacancies):
         session.add(key_skill)
         session.commit()
 
-    mean_sal = round(mean(salary_list), 0)
+    if salary_list:
+        mean_sal = round(mean(salary_list), 0)
+    else:
+        mean_sal = 0
     # if len(skills_list):
     #     print('Средняя зарплата: ', round(mean_sal), 'рублей')
     # else:
